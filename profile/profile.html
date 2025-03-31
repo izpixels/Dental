@@ -1,0 +1,513 @@
+
+<?php
+session_start();
+if (!isset($_SESSION['patient_id'])) {
+    header("Location: ../login/login.php");
+    exit();
+}
+?>
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="with=device-width, initial-sacle=1.0">
+        <title> Dental Care </title>
+
+        <link rel="stylesheet" href="./favicon.svg" type="image/svg+xml">
+        <link rel="stylesheet" href="../style.css">
+        <link rel="stylesheet" href="../style1.css">
+        <link rel="stylesheet" href="../style2.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Roboto:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    </head>
+
+    <body id="profile">
+        <div class="container">
+            <div class="sidebar">
+
+                <ul>
+                    <li>
+                        <a href="/Dental/home.html" class="logo1"> DentalCare. </a>
+                    </li>
+
+                    <li>
+                        <br> <br>
+                    
+                    </li>
+
+                    <li>
+                        <a href="profile.html" >
+                            <ion-icon name="apps"></ion-icon>
+                            <div class="title">Dashboard</div>
+                        </a>
+    
+                    </li>
+
+                    <li>
+                        <a href="" class="nav-link" data-target="patient-profileSection">
+                            <ion-icon name="person-circle"></ion-icon>
+                            <div class="title">Profile</div>
+                        </a>
+                        
+                    </li>
+
+                    <li> 
+                        <a href="" class="nav-link" data-target="patient-transactionSection">
+                            <ion-icon name="receipt"></ion-icon>
+                            <div class="title">Transactions</div>
+                        </a>
+                        
+                    </li>
+
+                    <li>
+                        <a href="" class="nav-link" data-target="patient-appointmentSection">
+                            <ion-icon name="calendar"></ion-icon>
+                            <div class="title">Appointment</div>
+                        </a>
+                        
+                    </li>
+                </ul>
+
+
+            </div>
+        </div>
+
+        <div class="main">
+            <div class="top-bar">
+
+                <div class="user-container" >
+    
+                    <div class="user">
+                        <img class="profile-pic" src="../uploads/default.jpg" onclick="toggleMenu()">
+                    </div>
+
+                    <div>
+                        <br>
+                    </div>
+
+                    <div class="sub-menu-wrap" id="subMenu">
+                        <div class="sub-menu">
+
+                            <div class="user-info">
+
+                                    <img class="profile-pic" src="../uploads/default.jpg">
+                                
+
+                                <h2 id="p-name" style="text-transform: uppercase;"> Loading.... </h2>
+                            </div> 
+                            
+                            <hr>
+                            <a href="" class="sub-menu-link nav-link" data-target="patient-profileSection">
+                                <ion-icon name="create"></ion-icon>
+                                <p> Edit Profile </p>
+                                <span> > </span>
+                            </a>
+
+                            <a href="/Dental/profile/logout.php" class="sub-menu-link">
+                                <ion-icon name="log-out"></ion-icon>
+                                <p> Logout </p>
+                                <span> > </span>
+                            </a>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+            <section id="profile-dashboardSection" class="content">
+                <div class="breadcrumb">
+                    <a href="profile.html" class="home">PROFILE</a> 
+                    <span class="separator"> / </span> 
+                    <span class="current">DASHBOARD</span>
+                </div>
+
+                <br>
+                <div class="breadcrumb1">
+                    <h2> BOOK APPOINTMENT </h2>
+                </div>
+
+                <section class="appointment"> 
+    
+                    <div class="calendar-container">
+                        <div class="chead">
+                            <h2>Choose Date for Appointment</h2>
+                        </div>
+                        
+                        <div class="calendar-content">
+                            <div class="calendar-header">
+                                <button id="prevMonth"><ion-icon name="caret-back-circle-outline"></ion-icon></button>
+                                <h3 id="monthYear">MARCH 2025</h3>
+                                <button id="nextMonth"><ion-icon name="caret-forward-circle-outline"></ion-icon></button>
+                            </div>
+    
+                            <div class="calendar-weekdays">
+                                <div>Sun</div>
+                                <div>Mon</div>
+                                <div>Tue</div>
+                                <div>Wed</div>
+                                <div>Thu</div>
+                                <div>Fri</div>
+                                <div>Sat</div>
+                            </div>
+    
+                            <div id="calendar"></div>
+    
+
+                        </div>
+                    </div>
+
+
+                    <div class="note-container">
+
+                    <div class="holiday-container">
+                        <div class="hh">
+                            <h3>LEGEND</h3>
+                    
+                        </div>
+
+                        <div class="legend-item available">Available</div>
+                        <div class="legend-item fully-booked">Fully Booked</div>
+                        <div class="legend-item holidays">Holidays</div>
+
+                    </div>
+
+                    <div class="holiday-container1">
+                        <div class="hh">
+                            <h3>HOLIDAYS</h3>
+                    
+                        </div>
+
+                        <table class="holiday-list">
+                            <tbody> </tbody>
+                            
+                        </table>
+
+                    </div>
+
+                    </div>
+
+
+
+                </section>
+
+                <div id="book-appointment" class="book-modal"  >
+                    <div class="book-content">
+                        <div class="mt">
+                        <span class="close-modal-btn close">&times;</span>
+                        <div class="book-head">
+                            <h3> BOOK APPOINTMENT FOR <H3 class="book-date"> JUNE 10, 2025 </H3></h3>
+                        </div>
+                         <hr>
+
+                         <label for="" class="label1">SELECT SLOT TIME</label>
+
+                         <div class="slot-time">
+                            
+                            <div id="slot-container" class="slot-container"> </div>
+                           
+                           
+                         </div>
+                         
+
+                        
+            
+            
+                        
+                        </div>
+                        
+                    </div>
+                </div>
+
+
+                <div id="send-appointment" class="book-modal" >
+                    <div class="book-content">
+                        <div class="mt">
+                        <div class="book-head">
+                            <h3> TIME SLOT SELECTED <H3 style="color: green;" class="selected-time"  id="selected-time-display">8:00AM</H3> </h3>
+                        </div>
+                         <hr>
+
+                         <div id="appointment-status-message" class="status-message"></div>
+
+
+                    
+                            <label for="appointment-type">APPOINTMENT TYPE</label>
+
+                            <div id="service-container">
+                                <!-- Services will be inserted here dynamically -->
+                            </div>
+                            <button type="button" id="add-service-btn">+ Add Another Service</button>
+                            
+
+                            <label for="time-slected">TIME SELECTED</label>
+                            <p id="time-selected"> SELECT TIME SLOT </p>
+
+                            <label for="date-slected">DATE SELECTED</label>
+                            <p id="date-selected"> SELECT DATE </p>
+
+                            <input type="hidden" id="selected-date">
+
+                         
+
+                        <div class="modal-footer">
+                            <button type="button" class="close-modal-btn" id="closeBtn"><ion-icon name="close"></ion-icon>Close</button>
+                            <button type="submit" class="save-appointment-btn"><ion-icon name="save"></ion-icon>Submit</button>
+                        </div>
+
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div id="success-appointment" class="book-modal">
+                    <div class="book-content">
+                        <div class="mt">
+                        <a href="#" class="logo"> DentalCare.</a>
+                        
+
+                    
+                            <div class="appoinment-details" >
+                                <h4 class="track-no"> TR-2025-0001 </h4>
+                                <small>transaction number</small>
+
+                                <h3 id="status"> status: Pending </h3>
+                                
+                                <h3 class="date-time"> March 28 | 10:00 AM </h3>
+
+                                
+                                <h3 id="success-profile-id" style="color: hsla(218, 70%, 18%, 0.527); font-size: 0.7rem;"> Loading...</h3>
+                                
+
+
+                            </div>
+                        
+
+
+                         
+
+                        <div class="modal-footer">
+                            <button type="button" class="close-modal-btn" id="closeTR">OK</button>
+                            
+                        </div>
+
+                        </div>
+                        
+                    </div>
+                </div>
+
+
+            </section>
+
+
+            <section id="patient-profileSection" class="content" style="display: none;"> <br><br>
+                <div class="breadcrumb">
+                    <a href="index.html" class="home">PROFILE</a> 
+                    <span class="separator"> / </span> 
+                    <span class="current">MY PROFILE</span>
+                </div>
+
+                <div id="myprofile">
+
+                    <div class="breadcrumb1">
+                        <h2> MY PROFILE </h2>
+                    </div>
+
+                    <div class="container"> 
+                        <div class="myprofile-section">
+
+    
+                            <div class="myprofile-card">
+
+                                <div id="upload-message" style="text-align: center; font-size: 0.6rem;"></div>
+
+                                <div class="image-container">  
+                                    <img id="profile-pic" class="profile-pic" src="/Dental/uploads/default.jpg" alt="Profile Picture">
+                                </div>
+
+                                <div class="img-input">
+                                    <input type="file" id="profile-pic-upload" accept="image/*" hidden>
+                                    <label for="profile-pic-upload" class="custom-file-upload">Choose File</label>
+                                    <span id="file-name">No file chosen</span>
+
+                                </div> 
+
+                                <h3 id="profile-full-name">Loading...</h3>
+
+                                <h3 id="profile-id" style="color: hsla(218, 70%, 18%, 0.527); font-size: 0.7rem;">Loading...</h3>
+
+                                
+
+                            </div>
+
+
+                            <div class="info-section">  
+                                <h3>INFORMATION</h3>
+                                <table>
+                                    <tr>
+                                        <td style="font-weight: 500;">NAME</td>
+                                        <td id="profile-name">Loading...</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="font-weight: 500;">EMAIL</td>
+                                        <td id="profile-email" style="text-transform: none;">Loading...</td>
+                                    </tr>
+
+                                    <tr >
+                                        <td style="font-weight: 500;">PHONE NUMBER</td>
+                                        <td id="profile-phone">Loading...</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="font-weight: 500;">BIRTHDATE</td>
+                                        <td id="profile-dob">Loading...</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="font-weight: 500;">ADDRESS</td>
+                                        <td id="profile-address">Loading...</td>
+                                    </tr>
+                                    
+                                    
+                                    
+                                </table>
+                                <button class="myupdate-btn btn" onclick="openModal()"><ion-icon name="create" style="color: white;"></ion-icon>UPDATE</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container teeth">
+                        <h3>My teeth chart</h3>
+
+                    </div>
+
+
+                    <div id="update-profile-Modal" class="modal" >
+                        <div class="mp-modal-content">
+                            <div class="mp-content">
+                            
+                            <span class="close-modal-btn close">&times;</span>
+                            <h2> <ion-icon name="create" style="color: hsl(218, 70%, 18%);"> </ion-icon>UPDATE INFORMATION</h2> <hr>
+            
+                        
+                                <form id="update-form">
+                                    <label>Name</label>
+                                    <input type="text" id="first-name" value="">
+
+                                    <label>Email</label>
+                                    <input type="text" id="username" value="" style="text-transform: none;">
+                            
+                                    <label>Phone Number</label>
+                                    <input type="number" id="phone" value="">
+
+                                    <label>Date of Birth</label>
+                                    <input type="date" id="dob" value="">
+
+                                
+                                    <label>Address</label>
+                                    <input type="text" id="address-street" value="" placeholder="Street">
+                                    <input type="text" id="address-barangay" value="" placeholder="Barangay">
+                                    <input type="text" id="address-city" value="" placeholder="City">
+                                    <input type="text" id="address-region" value="" placeholder="Region">
+                                    
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="close-modal-btn" id="closeBtn"><ion-icon name="close"></ion-icon>Close</button>
+                                        <button type="submit" class="save-modal-btn save-update"><ion-icon name="save"></ion-icon>Save</button>
+                                    </div>
+                                </form>
+
+                            
+                                
+                        </div>
+                    </div>
+                    </div>
+
+                </div>
+
+
+
+
+            </section>
+
+            <section id="patient-transactionSection" class="content" style="display: none;"> <br><br>
+                <div class="breadcrumb">
+                    <a href="index.html" class="home">PROFILE</a> 
+                    <span class="separator"> / </span> 
+                    <span class="current">MY TRANSACTIONS</span>
+                </div>
+
+                <div class="breadcrumb1">
+                    <h2> MY TRANSACTION RECORDS </h2>
+                </div>
+
+                
+
+            </section>
+
+            <section id="patient-appointmentSection" class="content" style="display: none;"> <br> <br>
+                <div class="breadcrumb">
+                    <a href="index.html" class="home">PROFILE</a> 
+                    <span class="separator"> / </span> 
+                    <span class="current">MY APPOINTMENTS</span>
+                </div>
+
+                <div class="breadcrumb1">
+                    <h2> MY APPOINTMENT RECORDS </h2>
+                </div>
+
+                
+
+            </section>
+
+
+                
+            
+                
+                
+            
+        </div>
+
+
+
+
+
+
+        <script>
+            let subMenu = document.getElementById("subMenu");
+
+            function toggleMenu()
+            {
+                subMenu.classList.toggle("open-menu");
+            }
+        </script>
+
+        <script>
+            document.getElementById('profile-pic-upload').addEventListener('change', function() {
+            let fileName = this.files.length > 0 ? this.files[0].name : "No file chosen";
+            document.getElementById('file-name').textContent = fileName;
+            });
+
+        </script>
+
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        <script src="https://unpkg.com/ionicons@latest/dist/ionicons.js"></script>
+        
+    
+        <script src="../script.js" defer></script>
+        <script src="fetch_profile.js"></script>
+        <script src="update_profile.js"></script>
+        <script src="calendar.js" defer></script>
+        <script src="appointment.js"></script>
+        <script src="save_appointment.js"></script>
+        <script src="services.js"></script>
+    </body>
+</html>

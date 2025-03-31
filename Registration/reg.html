@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="with=device-width, initial-sacle=1.0">
+        <title> Dental Care </title>
+
+        <link rel="stylesheet" href="../favicon.svg" type="image/svg+xml">
+        <link rel="stylesheet" href="../style.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Roboto:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    </head>
+
+    <body id="reg"  class="no-scroll" >
+
+        <div class="container">
+
+            <div class="form-box registration">
+
+                <a href="/Dental/home.html" class="back-btn">< Back</a>
+
+                <a href="/Dental/home.html" class="logo1"> DentalCare. </a>
+
+                <form id="registerForm">
+
+                    <br><h4> Registration Form </h4>
+
+                    <div class="input-box">
+                        <label> Full Name</label>
+                        <input type="text" name="full_name" placeholder="Enter full name" required>
+                    </div>
+
+                    <div class="input-box">
+                        <label> Email</label>
+                        <input type="email" name="email" placeholder="Enter email" required>
+                        <small class="error-message" id="email-error" style="font-size: 0.6rem;"></small>
+                    </div>
+
+
+                    <div class="column-reg">
+                       
+                        <div class="input-box">
+                            <label> Phone Number</label>
+                            <input type="number" name="phone_number" placeholder="Enter phone number" required>
+                            <small class="error-message" id="phone-error" style="font-size: 0.6rem;"></small>
+                        </div>
+
+                        <div class="input-box">
+                            <label> Password</label>
+                            <input type="password" name="password" placeholder="Enter password" required>
+                        </div>
+                    </div>
+
+                    <div class="input-box">
+                        <label> Birth Date</label>
+                        <input type="date" name="birth_date" required>
+                    </div>
+
+
+                    <div class="input-box address-container">
+                        <label> Address</label>
+                        <input type="text" name="street_address" placeholder="Enter street address" required>
+                        <label class="space"></label>
+
+                        <input type="text" name="barangay" placeholder="Enter your barangay" required>
+                        <label class="space"></label>
+
+                        <div class="column-reg">  
+                            <input type="text" name="city" placeholder="Enter your city" required>
+                            <input type="text" name="region" placeholder="Enter your region" required>
+                        </div>
+                    </div>
+
+                    
+                    <br>
+                    <p id="success-message" class="success-message" style="font-size: 0.6rem;"></p>
+                    <button type="submit" class="register-btn">Register</button>
+
+                    <div class="log-link">
+                        <label>Have an account? <a href="/Dental/login/login.html">Click here.</a></label>
+                    </div><br>
+                </form>
+
+            </div>
+
+
+
+
+        
+    </div>
+
+
+
+        <script src="../script.js" defer></script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("registerForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        let formData = new FormData(this);
+        let emailError = document.getElementById("email-error");
+        let phoneError = document.getElementById("phone-error");
+        let successMessage = document.getElementById("success-message");
+
+        // Clear previous errors & messages
+        emailError.textContent = "";
+        phoneError.textContent = "";
+        successMessage.textContent = "";
+
+        fetch("register.php", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                document.getElementById("registerForm").reset();
+
+                successMessage.innerHTML = 
+                    `Successfully registered!
+                    <a href='/Dental/login/login.html' style='color: green; text-decoration: underline;'>Click here to login</a>`;
+                successMessage.style.color = "green";
+            } else {
+                if (data.field === "email") {
+                    emailError.textContent = data.message;
+                    emailError.style.color = "red";
+                } else if (data.field === "phone_number") {
+                    phoneError.textContent = data.message;
+                    phoneError.style.color = "red";
+                }
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    });
+});
+
+        </script>
+
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    </body>
+</html>

@@ -1,0 +1,234 @@
+
+
+#myprofile .container {
+    width: 80%;
+    margin: 10px auto;
+    background: white;
+    padding: 40px;
+    box-shadow: 4px 4px 15px var(--black_10);
+    border-radius: 2px;
+    text-align: center;
+
+    text-transform: uppercase;
+}
+
+
+.myprofile-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 20px;
+    
+}
+
+.myprofile-card {
+    padding: 25px;
+    text-align: center;
+    width: 40%; /* Adjust width if needed */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers content */
+
+    color: hsl(218, 70%, 18%);
+}
+
+.myprofile-card .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border: 1px solid  hsl(225, 68%, 53%);
+    margin-bottom: 5px; 
+    
+}
+
+.myprofile-card img {
+    width: 200px; /* Set your preferred width */
+    height: 200px; /* Set your preferred height */
+    object-fit: cover;
+}
+
+.myprofile-card h3 {
+    font-size: 1.1rem;
+    line-height: 30px;
+}
+
+
+.img-input {
+
+    height: 50px;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #cccccc94;
+    color: hsl(218, 70%, 18%);
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 0.6rem;
+    border: 1px solid #0056b3;
+    transition: background 0.3s;
+
+    align-content: center;
+
+    height: 25px;
+    width: 120px;
+}
+
+.custom-file-upload:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+#file-name {
+    margin-left: 0;
+    font-size: 0.6rem;
+    color: hsl(225, 68%, 53%);
+}
+
+
+
+.info-section {
+    width: 60%;
+    color: hsl(218, 70%, 18%);
+}
+
+.info-section, 
+.teeth h3 {
+    font-size: 0.8rem;
+    margin-bottom: 10px !important;
+    color: hsl(218, 70%, 18%);
+}
+
+#myprofile table {
+    width: 100%;
+    border: none;
+    font-size: 0.7rem;
+
+    text-align: left;
+    margin-top: 10px !important;
+}
+
+
+
+#myprofile table td, tr {
+    border: none;
+}
+
+#myprofile table td:first-child{
+    width: 200px;
+
+}
+
+#myprofile table td {
+    padding: 10px;
+    align-content: baseline;
+    border-top: 1px solid #ddd;
+
+    white-space: normal;  /* Allows text to wrap */
+    word-wrap: break-word; /* Ensures long words break properly */
+    overflow-wrap: break-word; /* Alternative for newer browsers */
+    max-width: 90%;
+}
+
+.myupdate-btn {
+    background-image: linear-gradient( var(--deg, 90deg), var(--carolina-blue) 0%, var(--royal-blue-light) 100%);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 2px;
+    font-size: 0.6rem;
+    margin-top: 20px !important;
+    width: 150px;
+    height: 30px;
+    gap: 10px;
+}
+
+
+
+#update-profile-modal {
+    display: flex;
+    justify-items: center;
+}
+
+#update-profile-Modal {
+    overflow-y: auto;
+}
+
+.mp-modal-content {
+    margin-top: 5% !important;
+    justify-self: center;
+    justify-content: center;
+    background: white;
+    padding: 20px;
+    border-radius: 2px;
+    width: 30%;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
+    color: hsl(218, 70%, 18%);
+    display: flex;
+}
+
+.mp-content {
+    width: 95% !important;
+}
+
+.mp-modal-content h2 {
+    font-size: 0.8rem;
+    height: 40px;
+    gap: 8px !important;
+
+    display: flex;
+    align-items: center;
+
+}
+
+
+#update-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    font-size: 0.7rem;
+    text-transform: uppercase;
+}
+
+#update-form label {
+    font-size: 0.7rem;
+    margin-top: 25px !important;
+    font-weight: 500;
+
+    text-align: left !important;
+    width: 100%;
+
+}
+
+
+#update-form input,
+#update-form select {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.7rem;
+    border: 1px solid #ccc;
+    border-radius: 1px;
+    margin-top: 5px;
+
+    text-indent: 5px;
+}
+
+#update-form input[type="date"] {
+    text-indent: 7px !important;
+}
+
+#update-form .modal-footer {
+    width: 100%;
+    justify-content: right;
+}
+

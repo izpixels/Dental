@@ -1,0 +1,302 @@
+@media (min-width: 1200px) {
+
+    html {
+        font-family: var(--ff-roboto);
+        color: var(--sonic-silver);
+        font-size: 1.5rem;
+    }
+    
+    body {
+        background-color: var(--white);
+        color: var(--sonic-silver);
+        font-size: 1.5rem;
+        height: 300vh;
+    }
+
+    .container {max-width: 1200px;}
+
+    .header-top {
+        display: block;
+        background-color: var(--oxford-blue-1);
+        color: var(--white);
+        padding-block: 0;
+        font-size: 0.5rem;
+    }
+
+    .header-top :is(.container, .social-list),
+    .contact-list,
+    .contact-item {
+        display: flex;
+        align-items:center;
+    }
+
+    .contact-link, ion-icon { color: var(--light-steel-blue);}
+
+    .header-top .container {justify-content: space-between;}
+
+    .contact-list {gap: 20px;}
+
+    .contact-item {gap: 5px;}
+
+    .contact-item ion-icon {
+        color: var(--royal-blue-light);
+        --ionicon-stroke-width: 40px;
+    }
+
+    .header-top .social-list {gap: 15px;}
+
+    .header-top .social-link {
+        font-size: var(--fs-6);
+        transition: var(--transition);
+    }
+
+    .header-bottom {
+        top: 58px;
+        padding-block: 20px;
+    }
+
+    .header-bottom.active {top: -4px}
+
+    .nav-toggle-btn {display: none;}
+
+    .navbar,
+    .navbar.active {
+        all: unset;
+        margin-inline-start: auto;
+    }
+
+    .header-bottom .navbar-list {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: nowrap;
+        gap: 10px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .navbar-list li {
+        display: inline-block;
+    }
+
+    .navbar-list > li:not(:last-child){ border-block-end: none;}
+
+    .navbar-link {
+        color: var(--oxford-blue-1);
+        font-family: var(--ff-poppins);
+        text-transform: capitalize;
+        transition: var(--transition);
+    }
+
+    .navbar-list :is(:hover, :focus) {
+        background: -webkit-linear-gradient(30deg, var(--green-blue) 0%, var(--royal-blue-light) 100%);
+        background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-bottom .btn {
+        display: block;
+        display: inline-flex; 
+        align-items: center; 
+        justify-content: center; 
+        text-align: center;
+    }
+
+    .service-list {grid-template-columns: repeat(3, 1fr);}
+
+    .about .container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 40px;
+    }
+
+    .about-banner {margin-block-end: 0;}
+
+    .footer .container {grid-template-columns: 1fr 0.6fr 0.6fr 0.75fr;}
+
+    .footer-bottom {
+        background-color: var(--oxford-blue-3);
+        padding-block: 10px;
+        text-align: center;
+    }
+
+    .footer .social-list {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 400px;
+        margin-block-start: 5px;
+        margin-block-end: 15px;
+    }
+
+    .btn {
+    
+        background-image: linear-gradient( var(--deg, 90deg), var(--carolina-blue) 0%, var(--royal-blue-light) 100%);
+        color: var(--white);
+        font-size: var(--fs-7);
+        padding: 20px, 30px;
+        border-radius: var(--radius-4);
+        box-shadow: var(--shadow-4);
+        border: none;
+    
+        width: 250px;
+        height: 50px;
+    }
+
+    .sub-menu ion-icon {color: hsla(218, 70%, 18%, 0.836);}
+
+    .sidebar ion-icon {color: white;}
+
+    #reg .form-box 
+    {
+        display: block;
+        align-items: center;
+        justify-items: center;
+        padding-top: 550px;
+
+    }
+
+    #reg form {
+        height: 50px;
+        align-items: center;
+    }
+
+    #reg .back-btn:hover{
+        color: white;
+    }
+
+
+    #login .form-box 
+    {
+        display: block;
+        align-items: center;
+        justify-items: center;
+        padding-top: 150px;
+    }
+
+    #login form {
+        height: 550px;
+        align-items: center;
+    }
+
+/*......................................................Admin*/
+
+
+    #admin .cards {
+        padding-left: 540px;
+        display: grid;
+        align-items: center;
+        grid-template-columns: repeat(4, minmax(278px, 1fr)); /* Responsive */
+        gap: 50px;
+
+    }
+
+    .icon-box ion-icon {
+        color: rgba(252, 246, 246, 0.637);
+
+    }
+
+    .breadcrumb {
+        width: 135%;
+        font-size: 0.7rem;
+
+    }
+
+    #patients,
+    #todays-appoinment {
+        width: 135.5%;
+
+        display: flex;
+        justify-content: center;
+
+    
+    }
+    
+    .breadcrumb1 {
+        width: 135.5%;
+    
+    }
+
+    #profile .breadcrumb1 {
+        width: 100%;
+    }
+
+    .mt label {
+        display: flex;
+        font-size: 0.7rem;
+        font-weight: 500;
+        line-height: 30px;
+        align-items: center; /* Align text at the bottom */
+        padding-top: 15px !important; 
+        gap: 10px;
+    }
+
+
+    #admin .ta-list .confirm ion-icon{color: green;}
+
+    #admin .ta-list .cancel ion-icon{color: red;}
+
+    #admin .p-list .edit ion-icon{color: green;}
+
+    #admin .p-list .view ion-icon{color: blue;}
+
+    #admin .p-list .trash ion-icon{color: red;}
+
+    #admin .p-list .delete ion-icon{color: red;}
+
+    #myprofile ion-icon { color: white;}
+
+
+
+    #admin form {width: 100%;}
+
+    #holidaySection .patients { 
+        height: 750px;
+        background: white; 
+        margin-bottom: 0;
+        margin-top: 0;
+        border: none;
+    }
+
+    #admin .patients .p-heading ion-icon { color: white;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    #patients .patients .icon-box { 
+    color: rgba(92, 49, 49, 0.637);}
+
+    #patients .patients{
+        width: 100%;
+        margin-left: 60px;
+    }
+
+    #todays-appoinment .today{
+        width: 100%;
+        margin-left: 60px;
+    }
+
+    .appointment .breadcrumb1 {font-size: 1rem;}
+    
+}
+

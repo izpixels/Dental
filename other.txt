@@ -1,0 +1,206 @@
+/*......................................................floating btn*/
+.floating-container {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 20px;  
+    right: 20px;   
+    z-index: 1000; 
+    border-radius: 50%;
+    box-shadow: var(--shadow-2);
+    align-items: center;
+    background-image: var(--gradient1);
+
+}
+
+.floating-container ion-icon {color: white;}
+
+.floating-container:hover {
+    transform: scale(1.1);
+    transition: 0.3s ease-in-out;
+}
+
+.floating-btn {padding: 10.5px;}
+
+.back-btn {
+    position: absolute;
+    top: 20px;  
+    left: 20px; 
+    background: transparent;
+    border: none;
+    color: var(--oxford-blue-1);
+    font-size: 0.7rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal {
+
+    left: 10%;
+    display: none;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(169, 180, 204, 0.39);
+}
+
+.modal-content {
+    top: 9%;
+    left: 36%;
+    background-color: white;
+    height: 240px;
+    width: 360px;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 2px;
+    box-shadow: var(--shadow-1);
+    position: relative;
+    text-align: left;
+    justify-items: center;
+}
+
+
+<section id="holidaySection" class="content" style="display: none;"> <br><br><br>
+                <div class="breadcrumb">
+                    <a href="index.html" class="home">ADMIN</a> 
+                    <span class="separator"> / </span> 
+                    <span class="current">HOLIDAY</span>
+                </div>
+
+                <div class="breadcrumb1">
+                    <h2> HOLIDAYS RECORD </h2>
+                </div>
+
+                <section id="patients">
+                    <div class="container">
+                        <div class="patients">
+                            <div class="list-patients">
+                                <div class="p-heading">
+                                    <h2> List of Holidays </h2>
+                                    <a href="#" class="btn open-modal-btn" data-modal="holidayModal"> <ion-icon name="add"></ion-icon> New </a>
+                                    
+                                </div> <hr> <br>
+    
+                                <div class="p-heading2">
+    
+                                <label>Show 
+                                    <select id="entriesSelect">
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+            
+                                    </select> entries
+                                </label>
+                                <input type="text" id="searchBox" placeholder="Search..." class="search-box">
+       
+                                </div>
+    
+                                <div class="table-container">
+                                <table class="p-list">
+                                    <thead>
+                                        <td> # </td>
+                                        <td> Date </td>
+                                        <td> Description</td>
+                                        <td> Actions </td>
+                                    </thead>
+        
+                                    <tbody id="holidayTableBody">
+                                        <tr>
+                                        
+                                        </tr>
+                                        
+    
+                                    </tbody>
+        
+                                </table>
+                                </div>
+    
+                                <div class="pagination-container" id="holidayPagination">
+                                    <span class="entries-info">Showing 1 to 4 of 4 entries</span>
+                                    <div class="pagination">
+                                        
+                                    </div>
+                                </div>
+    
+                            </div> 
+                            
+                        </div>
+                        
+                    </div>
+    
+                </section>
+
+                <div id="holidayModal" class="modal">
+                        <div class="modal-content">
+                            <div class="mt">
+                            <span class="close-modal-btn close">&times;</span>
+                            <h3>+ New Holiday </h3> <hr>
+
+                            <form id="holidayForm">
+                            <p id="statusMessage" style="color: green; font-size: 0.6rem;" ></p>
+
+                            <label for="date">DATE <small> Format: mm-dd </small></label>
+                            <input type="text" id="date" name="date" placeholder="06-29" required>
+                            <p id="dateMessage" style="color: red; font-size: 0.6rem;"></p>
+
+
+                            <label for="description">DESCRIPTION</label>
+                            <input type="text" id="description" name="description" placeholder="Enter holiday name" required>
+            
+
+                            <div class="modal-footer">
+                                <button type="button" class="close-modal-btn" id="closeBtn"><ion-icon name="close"></ion-icon>Close</button>
+                                <button type="submit" class="save-modal-btn"><ion-icon name="save"></ion-icon>Save</button>
+                            </div>
+                            </form>
+
+                            </div>
+                            
+                        </div>   
+                </div>
+
+                <div id="edit-holiday-Modal" class="modal">
+                    <div class="modal-content">
+                        <div class="mt">
+                        <span class="close-modal-btn close">&times;</span>
+                        <h3>+ New Holiday </h3> <hr>
+
+                        <form id="holidayForm">
+                        <p id="statusMessage" style="color: green; font-size: 0.6rem;" ></p>
+
+                        <label for="date">DATE <small> Format: mm-dd </small></label>
+                        <input type="text" id="date" name="date" placeholder="06-29" required>
+                        <p id="dateMessage" style="color: red; font-size: 0.6rem;"></p>
+
+
+                        <label for="description">DESCRIPTION</label>
+                        <input type="text" id="description" name="description" placeholder="Enter holiday name" required>
+        
+
+                        <div class="modal-footer">
+                            <button type="button" class="close-modal-btn" id="closeBtn"><ion-icon name="close"></ion-icon>Close</button>
+                            <button type="submit" class="save-modal-btn"><ion-icon name="save"></ion-icon>Save</button>
+                        </div>
+                        </form>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div id="delete-holiday-Modal" class="modal">
+                    <div class="modal-content">
+                        <div class="mt">
+                            <span class="close-modal-btn close" id="closeDelete">&times;</span>
+                            <h3><ion-icon name="trash"></ion-icon> Confirm Deletion</h3> <hr>
+                            <p>Are you sure you want to delete this record?</p>
+                
+                            <div class="modal-footer">
+                                <button class="close-modal-btn" id="cancelDelete"><ion-icon name="close"></ion-icon> Cancel</button>
+                                <button class="delete-modal-btn" id="confirmDelete"><ion-icon name="trash"></ion-icon> Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
