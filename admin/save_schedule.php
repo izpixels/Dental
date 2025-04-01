@@ -20,11 +20,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = "";
     $dbname = "dentalcare_db";
 
-    $slot_date = $_POST["slot_date"];
-    $slot_number = $_POST["slot_number"];
-    $start_time = $_POST["start_time"];
-    $end_time = $_POST["end_time"];
-    $duration_minutes = $_POST["duration_minutes"];
+    $input = json_decode(file_get_contents('php://input'), true);
+
+    // Retrieve data from the decoded JSON
+    $sched_date = $input["sched_date"] ?? null;
+    $sched_slot = $input["sched_slot"] ?? null;
+    $sched_start = $input["sched_start"] ?? null;
+    $sched_end = $input["sched_end"] ?? null;
+    $sched_duration = $input["sched_duration"] ?? null;
 
     // Check if schedule already exists for the same date
     $check_sql = "SELECT id FROM appointment_slots WHERE slot_date = ?";
@@ -42,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Insert into database
     $sql = "INSERT INTO appointment_slots (slot_date, slot_number, start_time, end_time, duration_minutes) VALUES (?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sisss", $slot_date, $slot_number, $start_time, $end_time, $duration_minutes);
+    $stmt->bind_param("sisss", $sched_date, $sched_slot, $sched_start, $sched_end, $sched_duration);
 
     if ($stmt->execute()) {
         echo "Successfully added!";

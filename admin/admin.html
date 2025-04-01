@@ -1,27 +1,29 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE-edge">
-    <meta name="viewport" content="with=device-width, initial-sacle=1.0">
-    <title> Dental Care </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dental Care</title>
 
     <link rel="stylesheet" href="./favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../style1.css">
     <link rel="stylesheet" href="../style2.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css" />
-
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap5.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Roboto:wght@400;500;600&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
 
+    <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@latest/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@latest/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body id="admin">
     <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@latest/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@latest/dist/ionicons/ionicons.js"></script>
 
@@ -192,7 +194,8 @@
 
                         <div class="icon-box">
                             <ion-icon name="id-card"></ion-icon>
-                        </div>
+
+</div>
                     </div>
 
                     <div class="card">
@@ -862,27 +865,36 @@
                     <span class="separator"> / </span>
                     <span class="current">SCHEDULE</span>
                 </div>
-
                 <div class="breadcrumb1">
-                    <h2> SCHEDULES RECORD </h2>
+                    <h2>SCHEDULES RECORD</h2>
                 </div>
-                <div class="p-heading">
-                    <h2> SCHEDULES </h2>
-                    <a href="#" class="sched-btn btn"> <ion-icon name="add"></ion-icon> New </a>
-                </div>
-                <table id="sched-table" class="cell-border compact stripe p-list">
+                <table id="sched-table" class="table table-striped" style="width: 100%;">
                     <thead>
-                        <td>ID</td>
-                        <td>Slots Date </td>
-                        <td>Slot</td>
-                        <td>Start Time</td>
-                        <td> End Time </td>
-                        <td> Duration</td>
-                        <td> Actions </td>
+                        <tr>
+                        <th>ID</th>
+                        <th>Slots Date</th>
+                        <th>Slot</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Duration</th>
+                        <th>Actions</th>
+                        </tr>
                     </thead>
                     <tbody>
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>ID</td>
+                            <td>Slots Date</td>
+                            <td>Slot</td>
+                            <td>Start Time</td>
+                            <td>End Time</td>
+                            <td>Duration</td>
+                            <td>Actions</td>
+                        </tr>
+                    </tfoot>
                 </table>
+            </section>
         </div>
     </div>
     </div>
@@ -1120,9 +1132,7 @@
                                     <td> Contact </td>
                                     <td> Actions </td>
                                 </thead>
-
                                 <tbody>
-
                                     <tr>
                                         <td> 1 </td>
                                         <td>
@@ -1141,8 +1151,6 @@
                                                     name="trash"></ion-icon></a>
                                         </td>
                                     </tr>
-
-
                                 </tbody>
 
                             </table>
@@ -1160,9 +1168,7 @@
                 </div>
             </div>
         </section>
-
     </section>
-
     <section id="appointmentSection" class="content" style="display: none;"> <br><br><br>
         <div class="breadcrumb">
             <a href="index.html" class="home">ADMIN</a>
@@ -1176,9 +1182,11 @@
     </section>
     </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
-    <script src="../script.js" defer></script>
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.js"></script>
+    <script src="../script.js"></script>
     <!-- <script src="../admin/holiday.js" defer></script>
     <script src="../admin/service.js" defer></script> -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
@@ -1239,7 +1247,7 @@
             let row = $(this).closest('tr');
             let lastTd = row.find('td').last();
 
-            row.find('td').not(':last').each(function () {
+            row.find('td').each(function () {
                 $td = $(this);
                 let column = row.closest('table').find('th').eq($td.index()).text().trim();
                 originalValues.push($(this).text().trim());
@@ -1309,7 +1317,7 @@
 
         });
 
-        $(document).on('click','[class*=cancel-link]', function () {
+        $(document).on('click', '[class*=cancel-link]', function () {
             let row = $(this).closest('tr');
             let lastTd = row.find('td').last();
 
@@ -1318,7 +1326,7 @@
                 let td = $(this).closest('td');
                 td.html($(this).val());
             });
-        lastTd.html(`<td>
+            lastTd.html(`<td>
           <a href="#" class="edit tooltip edit-link">
             <ion-icon name="create" role="img" class="md hydrated"></ion-icon>
           </a>
