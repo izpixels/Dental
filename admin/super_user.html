@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Basic Layout</title>
+    <!-- Include Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- DataTables Buttons CSS -->
+    <link href="https://cdn.datatables.net/buttons/3.2.2/css/buttons.dataTables.css" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+    <!-- DataTables Core JS -->
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: #343a40;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 20px;
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            margin: 10px 0;
+        }
+
+        .sidebar a:hover {
+            text-decoration: underline;
+        }
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .banner {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        input.edit-table {
+            width: 100%;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h4>Sidebar</h4>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Contact</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Banner -->
+        <div class="banner">
+            <h1>Welcome to the Website</h1>
+            <p>This is a simple banner section.</p>
+        </div>
+
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mt-3">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Schedule</li>
+            </ol>
+        </nav>
+
+        <!-- Page Content -->
+        <div class="container mt-4">
+            <h2>Schedule</h2>
+            <p>Section where you add schedule</p>
+            <button type="button" style="float: right;"  class="add btn btn-primary">Add</button>
+            <table id="sched-table" class="display table table-striped" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Slots Date</th>
+                        <th>Slot</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Duration</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>ID</td>
+                        <td>Slots Date</td>
+                        <td>Slot</td>
+                        <td>Start Time</td>
+                        <td>End Time</td>
+                        <td>Duration</td>
+                        <td>Actions</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <!-- Notification Modal -->
+    <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="notificationModalLabel">Notification</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="notificationMessage">This is a notification message.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Your Website. All rights reserved.</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.js"></script>
+    <script>
+        let schedDataTable = new DataTable('#sched-table', {
+            ajax: {
+                url: 'fetch_schedules.php',
+                dataSrc: 'data',
+                dataType: 'json'
+            },
+            columnDefs: [
+                {
+                    data: null,
+                    defaultContent: `
+                        <div class="d-flex">
+                            <!-- Edit Button -->
+                            <button type="button" class="btn btn-warning btn-sm me-2 edit-link" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <!-- Delete Button -->
+                            <button type="button" class="btn btn-danger btn-sm delete-link" title="Delete">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    `,
+                    targets: -1
+                },
+            ],
+            paging: true,
+            searching: true,
+            processing: true,
+            columns: [
+                { data: 'id', title: '#' },
+                { data: 'slot_date', title: 'Slot Date' },
+                { data: 'slot_number', title: 'Slot' },
+                { data: 'start_time', title: 'Start Time' },
+                { data: 'end_time', title: 'End Time' },
+                { data: 'duration_minutes', title: 'Duration' },
+                { title: 'Actions' }
+            ]
+        });
+
+        function toCamelCase(str) {
+            return str
+                .toLowerCase()
+                .replace(/[^a-zA-Z0-9 ]/g, '') // remove non-alphanumeric chars
+                .replace(/\s+(.)/g, (_, chr) => chr.toUpperCase())
+                .replace(/\s/g, '');
+        }
+
+        function toggleMenu() {
+            subMenu.classList.toggle("open-menu");
+        }
+
+        $('.add').on('click', function () {
+            $('#notificationModal').modal('show');
+            $('#notificationModal').find('#notificationModalLabel').text('Add Schedule');
+            $('#notificationModal').find('#notificationMessage').html(`
+                <form id="addScheduleForm">
+                    <div class="mb-3">
+                        <label for="slotDate" class="form-label">Slot Date</label>
+                        <input type="date" class="form-control" id="slotDate" name="slotDate" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="slotNumber" class="form-label">Slot Number</label>
+                        <input type="number" class="form-control" id="slotNumber" name="slotNumber" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="startTime" class="form-label">Start Time</label>
+                        <input type="time" class="form-control" id="startTime" name="startTime" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="endTime" class="form-label">End Time</label>
+                        <input type="time" class="form-control" id="endTime" name="endTime" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="duration" class="form-label">Duration (minutes)</label>
+                        <input type="number" class="form-control" id="duration" name="duration" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            `);
+        });
+
+        $('#notificationModal').on('submit', '#addScheduleForm', function (e) {
+            e.preventDefault();
+            const url = 'save_schedule.php';
+            const data = {
+                sched_date: $('#slotDate').val(),
+                sched_slot: $('#slotNumber').val(),
+                sched_start: $('#startTime').val(),
+                sched_end: $('#endTime').val(),
+                sched_duration: $('#duration').val()
+            };
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            };
+            fetch(url, options)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text(); // Parse the JSON response
+                })
+                .then(data => {
+                    schedDataTable.ajax.reload();
+                    console.log('Resource created successfully:', data);
+                    $('#notificationModal').modal('hide');
+                })
+                .catch(error => {
+                    console.error('There was a problem with your fetch operation:', error);
+                });
+        });
+
+        $(document).on('click', '[class*=delete-link]', function (){
+            let row = $(this).closest('tr');
+            let schedId = row.find('td').eq(0).text().trim();
+            console.log("Deleting ID: " + schedId);
+            const url = 'delete_schedule.php';
+            const options = {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ sched_id: schedId }),
+            };
+            fetch(url, options)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text(); // Parse the JSON response
+                })
+                .then(data => {
+                    schedDataTable.ajax.reload();
+                    console.log('Resource deleted successfully:', data);
+                })
+                .catch(error => {
+                    console.error('There was a problem with your fetch operation:', error);
+                });
+        });
+
+        let originalValues = [];
+        $(document).on('click', '[class*=edit-link]', function () {
+            let row = $(this).closest('tr');
+            let lastTd = row.find('td').last();
+
+            row.find('td').each(function () {
+                $td = $(this);
+                let column = row.closest('table').find('th').eq($td.index()).text().trim();
+                originalValues.push($(this).text().trim());
+                if ($(this).not(':first')) {
+                    $(this).html("<input type='text' class='edit-table' name='" + toCamelCase(column) + "' value='" + $(this).text() + "'/>");
+                }
+                console.log(column);
+            });
+
+            lastTd.html(`<div class"d-flex">
+                            <!-- Edit Button -->
+                            <button type="button" class="btn btn-warning btn-sm me-2 update-link" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <!-- Delete Button -->
+                            <button type="button" class="btn btn-secondary btn-sm cancel-link" title="Cancel">
+    <i class="fas fa-times"></i>
+</button>
+                        </div>
+                    `,);
+
+        });
+        $(document).on('click', '[class*=update-link]', function () {
+            const url = 'save_schedule.php';
+            let row = $(this).closest('tr');
+            let values = [];
+            row.find('td input').each(function () {
+                values.push($(this).val().trim());
+            });
+
+            console.log("Processing Update");
+            console.log(arraysAreEqual(values, originalValues));
+
+            if (!arraysAreEqual(values, originalValues)) {
+                const data = {
+                    sched_id: values[0],
+                    sched_date: values[1],
+                    sched_slot: values[2],
+                    sched_start: values[3],
+                    sched_end: values[4],
+                    sched_duration: values[5].replace(/\D/g, '')
+                };
+                const options = {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                };
+                fetch(url, options)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.text(); // Parse the JSON response
+                    })
+                    .then(data => {
+                        schedDataTable.ajax.reload();
+                        console.log('Resource updated successfully:', data);
+
+                    })
+                    .catch(error => {
+                        console.error('There was a problem with your fetch operation:', error);
+                    });
+                }
+        });
+
+        $(document).on('click', '[class*=cancel-link]', function () {
+            let row = $(this).closest('tr');
+            let lastTd = row.find('td').last();
+
+            let values = [];
+            row.find('td input').each(function () {
+                let td = $(this).closest('td');
+                td.html($(this).val());
+            });
+            lastTd.html(`
+                        <div class="d-flex">
+                            <!-- Edit Button -->
+                            <button type="button" class="btn btn-warning btn-sm me-2 edit-link" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <!-- Delete Button -->
+                            <button type="button" class="btn btn-danger btn-sm delete-link" title="Delete">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    `)
+            });
+
+        function arraysAreEqual(arr1, arr2) {
+            if (arr1.length !== arr2.length) return false;
+
+            for (let i = 0; i < arr1.length; i++) {
+                if (arr1[i] !== arr2[i]) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    </script>
+</body>
+
+</html>
