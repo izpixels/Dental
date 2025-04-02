@@ -1,19 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Basic Layout</title>
+    <title>Admin</title>
+    <link rel=”icon” type=“image/x-icon” href=”favicon.ico">
+      <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/smoothness/jquery-ui.css" rel="stylesheet">
+
     <!-- Include Font Awesome for icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- DataTables Buttons CSS -->
-    <link href="https://cdn.datatables.net/buttons/3.2.2/css/buttons.dataTables.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
+        rel="stylesheet">
+
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
@@ -23,59 +30,312 @@
 
     <!-- Bootstrap 5 JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
 
     <style>
-        body {
-            display: flex;
-            min-height: 100vh;
-            flex-direction: column;
-        }
-
-        .sidebar {
-            width: 250px;
-            height: 100vh;
-            background-color: #343a40;
-            color: white;
-            position: fixed;
-            top: 0;
-            left: 0;
-            padding: 20px;
-        }
-
-        .sidebar a {
-            color: white;
-            text-decoration: none;
-            display: block;
-            margin: 10px 0;
-        }
-
-        .sidebar a:hover {
-            text-decoration: underline;
-        }
-
-        .content {
-            margin-left: 250px;
-            padding: 20px;
-            flex: 1;
-        }
-
-        .banner {
-            background-color: #007bff;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
         .footer {
             background-color: #343a40;
+            position: relative;
             color: white;
             text-align: center;
             padding: 10px 0;
         }
 
+        /* form input  when editing is done */
         input.edit-table {
             width: 100%;
             margin: 0;
+        }
+
+
+        /* Google Font Link */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 78px;
+            background: #4439c0;
+            padding: 6px 14px;
+            z-index: 99;
+            transition: all 0.5s ease;
+        }
+
+        .sidebar.open {
+            width: 250px;
+        }
+
+        .sidebar .logo-details {
+            height: 60px;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .sidebar .logo-details .icon {
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .sidebar .logo-details .logo_name {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 600;
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .sidebar.open .logo-details .icon,
+        .sidebar.open .logo-details .logo_name {
+            opacity: 1;
+        }
+
+        .sidebar .logo-details #btn {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            font-size: 22px;
+            transition: all 0.4s ease;
+            font-size: 23px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.5s ease;
+        }
+
+        .sidebar.open .logo-details #btn {
+            text-align: right;
+        }
+
+        .sidebar i {
+            color: #fff;
+            height: 60px;
+            /* min-width: 50px; */
+            font-size: 50%px;
+            text-align: center;
+            line-height: 60px;
+        }
+
+        .sidebar .nav-list {
+            margin-top: 20px;
+            height: 100%;
+        }
+
+        .sidebar li {
+            position: relative;
+            margin: 8px 0;
+            list-style: none;
+        }
+
+        .sidebar li .tooltip {
+            position: absolute;
+            top: -20px;
+            left: calc(100% + 15px);
+            z-index: 3;
+            background: #fff;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 400;
+            opacity: 0;
+            white-space: nowrap;
+            pointer-events: none;
+            transition: 0s;
+        }
+
+        .sidebar li:hover .tooltip {
+            opacity: 1;
+            pointer-events: auto;
+            transition: all 0.4s ease;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .sidebar.open li .tooltip {
+            display: none;
+        }
+
+        .sidebar input {
+            font-size: 15px;
+            color: #FFF;
+            font-weight: 400;
+            outline: none;
+            height: 50px;
+            width: 100%;
+            width: 50px;
+            border: none;
+            border-radius: 12px;
+            transition: all 0.5s ease;
+            background: #1d1b31;
+        }
+
+        .sidebar.open input {
+            padding: 0 20px 0 50px;
+            width: 100%;
+        }
+
+        .sidebar .bx-search {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            font-size: 22px;
+            background: #1d1b31;
+            color: #FFF;
+        }
+
+        .sidebar.open .bx-search:hover {
+            background: #1d1b31;
+            color: #FFF;
+        }
+
+        .sidebar .bx-search:hover {
+            background: #FFF;
+            color: #11101d;
+        }
+
+        .sidebar li a {
+            display: flex;
+            height: 100%;
+            width: 100%;
+            border-radius: 12px;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.4s ease;
+                /* background: #11101D; */
+        }
+
+        .sidebar li a:hover {
+            background: #FFF;
+        }
+
+        .sidebar li a .links_name {
+            color: #fff;
+            font-size: 15px;
+            font-weight: 400;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.4s;
+        }
+
+        .sidebar.open li a .links_name {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .sidebar li a:hover .links_name,
+        .sidebar li a:hover i {
+            transition: all 0.5s ease;
+            color: #11101D;
+        }
+
+        .sidebar li i {
+            height: 50px;
+            line-height: 50px;
+            font-size: 18px;
+            border-radius: 12px;
+        }
+
+        .sidebar li.profile {
+            position: fixed;
+            height: 60px;
+            width: 78px;
+            left: 0;
+            bottom: -8px;
+            padding: 10px 14px;
+            background: #1d1b31;
+            transition: all 0.5s ease;
+            overflow: hidden;
+        }
+
+        .sidebar.open li.profile {
+            width: 250px;
+        }
+
+        .sidebar li .profile-details {
+            display: flex;
+            align-items: center;
+            flex-wrap: nowrap;
+        }
+
+        .sidebar li img {
+            height: 45px;
+            width: 45px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-right: 10px;
+        }
+
+        .sidebar li.profile .name,
+        .sidebar li.profile .job {
+            font-size: 15px;
+            font-weight: 400;
+            color: #fff;
+            white-space: nowrap;
+        }
+
+        .sidebar li.profile .job {
+            font-size: 12px;
+        }
+
+        .sidebar .profile #log_out {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            background: #1d1b31;
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            border-radius: 0px;
+            transition: all 0.5s ease;
+        }
+
+        .sidebar.open .profile #log_out {
+            width: 50px;
+            background: none;
+        }
+
+        .selected-section {
+            position: relative;
+            background: #E4E9F7;
+            min-height: 100vh;
+            top: 0;
+            left: 78px;
+            width: calc(100% - 78px);
+            transition: all 0.5s ease;
+            z-index: 2;
+        }
+
+        .sidebar.open~.home-section {
+            left: 250px;
+            width: calc(100% - 250px);
+        }
+
+        .home-section .text {
+            display: inline-block;
+            color: #11101d;
+            font-size: 25px;
+            font-weight: 500;
+            margin: 18px
+        }
+
+        @media (max-width: 420px) {
+            .sidebar li .tooltip {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -83,35 +343,84 @@
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
-        <h4>Sidebar</h4>
-        <a href="#">Home</a>
-        <a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#">Contact</a>
-    </div>
-
-    <!-- Main Content -->
-    <div class="content">
-        <!-- Banner -->
-        <div class="banner">
-            <h1>Welcome to the Website</h1>
-            <p>This is a simple banner section.</p>
+        <div class="logo-details">
+            <i class='bx bxl-c-plus-plus icon'></i>
+            <div class="logo_name">Admin</div>
+            <i class='bx bx-menu' id="btn"></i>
         </div>
-
-        <!-- Breadcrumb -->
-        <nav aria-label="breadcrumb" class="mt-3">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Schedule</li>
-            </ol>
-        </nav>
-
-        <!-- Page Content -->
-        <div class="container mt-4">
-            <h2>Schedule</h2>
-            <p>Section where you add schedule</p>
-            <button type="button" style="float: right;"  class="add btn btn-primary">Add</button>
+        <ul class="nav-list">
+            <li>
+                <a href="#" onclick="showThisSection(this)">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="links_name">Dashboard</span>
+                </a>
+                <span class="tooltip">Dashboard</span>
+            </li>
+            <li>
+                <a href="#" onclick="showThisSection(this)">
+                    <i class='bx bx-user'></i>
+                    <span class="links_name">Schedule</span>
+                </a>
+                <span class="tooltip">Schedule</span>
+            </li>
+            <li>
+                <a href="#" onclick="showThisSection(this)">
+                    <i class='bx bx-chat'></i>
+                    <span class="links_name">Messages</span>
+                </a>
+                <span class="tooltip">Messages</span>
+            </li>
+            <li>
+                <a href="#" onclick="showThisSection(this)">
+                    <i class='bx bx-pie-chart-alt-2'></i>
+                    <span class="links_name">Analytics</span>
+                </a>
+                <span class="tooltip">Analytics</span>
+            </li>
+            <li>
+                <a href="#" onclick="showThisSection(this)">
+                    <i class='bx bx-folder'></i>
+                    <span class="links_name">File Manager</span>
+                </a>
+                <span class="tooltip">Files</span>
+            </li>
+            <li>
+                <a href="#" onclick="showThisSection(this)">
+                    <i class='bx bx-cart-alt'></i>
+                    <span class="links_name">Order</span>
+                </a>
+                <span class="tooltip">Order</span>
+            </li>
+            <li>
+                <a href="#" onclick="showThisSection(this)">
+                    <i class='bx bx-heart'></i>
+                    <span class="links_name">Saved</span>
+                </a>
+                <span class="tooltip">Saved</span>
+            </li>
+            <li>
+                <a href="#" onclick="showThisSection(this)">
+                    <i class='bx bx-cog'></i>
+                    <span class="links_name">Setting</span>
+                </a>
+                <span class="tooltip">Setting</span>
+            </li>
+            <li class="profile">
+                <div class="profile-details">
+                    <img src="../images/banner-log.png" alt="profileImg">
+                    <div class="name_job">
+                        <div class="name">Jerick R. Almonina</div>
+                        <div class="job">Software Engineer</div>
+                    </div>
+                </div>
+                <i class='bx bx-log-out' id="log_out"></i>
+            </li>
+        </ul>
+    </div>
+    <!-- Main Content -->
+    <section id="schedule-section" class="selected-section" style="display: none;">
+        <div class="container mt-0">
+            <p class="h2">Scheduling</p>
             <table id="sched-table" class="display table table-striped" style="width: 100%;">
                 <thead>
                     <tr>
@@ -126,21 +435,69 @@
                 </thead>
                 <tbody>
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <td>ID</td>
-                        <td>Slots Date</td>
-                        <td>Slot</td>
-                        <td>Start Time</td>
-                        <td>End Time</td>
-                        <td>Duration</td>
-                        <td>Actions</td>
-                    </tr>
-                </tfoot>
             </table>
         </div>
-    </div>
+    </section>
 
+    <section id="dashboard-section" class="selected-section">
+        <div class="container mt-0">
+            <p class="h1">Dashboard</p>
+            <div class="row">
+                <!-- Total Patients Card -->
+                <div class="col-md-6">
+                    <div class="card text-white bg-primary mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Patients</h5>
+                            <p class="card-text h1" id="totalPatients">0</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Total Appointments Card -->
+                <div class="col-md-6">
+                    <div class="card text-white bg-success mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Appointments</h5>
+                            <p class="card-text h1" id="totalAppointments">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-0">
+            <p class="h2">Today's Appointment</p>
+            <table id="appointment-table" class="display table table-striped" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th> # </th>
+                        <th> Transaction No. </th>
+                        <th> Services</th>
+                        <th> Time Slot </th>
+                        <th> Contact </th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div class="container mt-0">
+            <p class="h2">Patient List</p>
+            <table id="patient-table" class="display table table-striped" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Patient Name</th>
+                        <th>Gender</th>
+                        <th>DOB</th>
+                        <th>Contact</th>
+                        <th>Date Created</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        </secion>
+    </section>
     <!-- Notification Modal -->
     <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel"
         aria-hidden="true">
@@ -164,48 +521,176 @@
     <footer class="footer">
         <p>&copy; 2025 Your Website. All rights reserved.</p>
     </footer>
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.js"></script>
     <script>
-        let schedDataTable = new DataTable('#sched-table', {
-            ajax: {
-                url: 'fetch_schedules.php',
-                dataSrc: 'data',
-                dataType: 'json'
-            },
-            columnDefs: [
-                {
-                    data: null,
-                    defaultContent: `
-                        <div class="d-flex">
-                            <!-- Edit Button -->
-                            <button type="button" class="btn btn-warning btn-sm me-2 edit-link" title="Edit">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <!-- Delete Button -->
-                            <button type="button" class="btn btn-danger btn-sm delete-link" title="Delete">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                        </div>
-                    `,
-                    targets: -1
+        let schedDataTable = null;
+        function textToIdSelector(text) {
+            // Convert text to lowercase, replace spaces with dashes, and prepend '#'
+            return `#${text.toLowerCase().replace(/\s+/g, '-')}-section`;
+        }
+        function showThisSection(element) {
+            let selectedSection = $(element).find('span').text().toLowerCase();
+            console.log(selectedSection);
+            // Hide all sections
+            $('.selected-section').hide();
+            $(textToIdSelector(selectedSection)).show("slide", { direction: "right" }, 1000);
+        }
+
+        $(document).ready(function () {
+            // let sidebarLink = $('.links_name').closest('a');
+
+            // sidebarLink.on('click', function () {
+            //     let sidebarTxt = $(this).find('span').text();
+            //     console.log(sidebarTxt);
+            //     if (sidebarTxt === 'Dashboard') {
+            //         $('#sched-section').hide();
+            //         $('#dashb-section').show();
+            //     } else {
+            //         $('#sched-section').show();
+            //         $('#dashb-section').hide();
+            //     }
+            // });
+
+            schedDataTable = $('#sched-table').DataTable({
+                responsive: true,
+                autoWidth: true,
+                ajax: {
+                    url: 'fetch_schedules.php',
+                    dataSrc: 'data',
+                    dataType: 'json'
                 },
-            ],
-            paging: true,
-            searching: true,
-            processing: true,
-            columns: [
-                { data: 'id', title: '#' },
-                { data: 'slot_date', title: 'Slot Date' },
-                { data: 'slot_number', title: 'Slot' },
-                { data: 'start_time', title: 'Start Time' },
-                { data: 'end_time', title: 'End Time' },
-                { data: 'duration_minutes', title: 'Duration' },
-                { title: 'Actions' }
-            ]
+                columnDefs: [
+                    {
+                        data: null,
+                        defaultContent: `
+                        <div class="d-flex">
+                            <div class="d-flex">
+                                <!-- Edit Button -->
+                                <button type="button" class="btn btn-warning btn-sm me-2 edit-link" title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </div>
+                            <div class="d-flex">
+                                <!-- Delete Button -->
+                                <button type="button" class="btn btn-danger btn-sm delete-link" title="Delete">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        `,
+                        targets: -1
+                    },
+                ],
+                paging: true,
+                searching: true,
+                processing: true,
+                columns: [
+                    { data: 'id', title: '#' },
+                    { data: 'slot_date', title: 'Slot Date' },
+                    { data: 'slot_number', title: 'Slot' },
+                    { data: 'start_time', title: 'Start Time' },
+                    { data: 'end_time', title: 'End Time' },
+                    { data: 'duration_minutes', title: 'Duration' },
+                    { title: 'Actions' }
+                ]
+            });
+            $('.dt-length').find('label').text('').remove();
+            $('.dt-search').find('label').text('').remove();
+            $('.dt-layout-end').prepend('<button type="button" style="margin-right:2em" class="add btn btn-primary">Add</button>');
+
+            const sampleAppointments = [];
+            for (let i = 1; i <= 100; i++) {
+                sampleAppointments.push({
+                    id: i,
+                    transactionNo: `TRX${10000 + i}`,
+                    services: `Service ${i % 5 + 1}, Service ${i % 3 + 1}`,
+                    timeSlot: `${(8 + (i % 10)).toString().padStart(2, '0')}:00 AM - ${(9 + (i % 10)).toString().padStart(2, '0')}:00 AM`,
+                    contact: `0915${Math.floor(1000000 + Math.random() * 9000000)}`
+                });
+            }
+            // Initialize DataTable for Today's Appointment
+            $('#appointment-table').DataTable({
+                responsive: true,
+                autoWidth: true,
+                paging: true,
+                searching: true,
+                processing: true,
+                // ajax: {
+                //     url: 'fetch_appointments.php',
+                //     dataSrc: 'data',
+                //     dataType: 'json'
+                // },
+                data: sampleAppointments,
+
+                columns: [
+                    { data: "id", title: "#" },
+                    { data: "transactionNo", title: "Transaction No." },
+                    { data: "services", title: "Services" },
+                    { data: "timeSlot", title: "Time Slot" },
+                    { data: "contact", title: "Contact" }
+                ]
+            });
+
+            const samplePatients = [];
+            for (let i = 1; i <= 100; i++) {
+                samplePatients.push({
+                    id: i,
+                    patient_name: `Patient ${i}`,
+                    patient_gender: i % 2 === 0 ? "Male" : "Female",
+                    patient_dob: `19${80 + (i % 20)}-${(i % 12 + 1).toString().padStart(2, '0')}-${(i % 28 + 1).toString().padStart(2, '0')}`,
+                    patient_contact: `0915${Math.floor(1000000 + Math.random() * 9000000)}`,
+                    date_created: `2025-${(i % 12 + 1).toString().padStart(2, '0')}-${(i % 28 + 1).toString().padStart(2, '0')}`
+                });
+            }
+
+            $('#patient-table').DataTable({
+                responsive: true,
+                autoWidth: true,
+                paging: true,
+                searching: true,
+                processing: true,
+                data: samplePatients,
+                columns: [
+                    { data: "id", title: "#" },
+                    { data: "patient_name", title: "Patient Name" },
+                    { data: "patient_gender", title: "Gender" },
+                    { data: "patient_dob", title: "DOB" },
+                    { data: "patient_contact", title: "Contact" },
+                    { data: "date_created", title: "Date Created" }
+                ],
+            });
+            $('.dt-length').find('label').text('').remove();
+            $('.dt-search').find('label').text('').remove();
+            $('.dt-search').find('input').attr('placeholder', 'Search');
+            // Update Dashboard Totals
+            $('#totalPatients').text(samplePatients.length);
+            $('#totalAppointments').text(sampleAppointments.length);
+
         });
+
+        let sidebar = document.querySelector(".sidebar");
+        let closeBtn = document.querySelector("#btn");
+        let searchBtn = document.querySelector(".bx-search");
+        closeBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("open");
+            menuBtnChange();//calling the function(optional)
+        });
+        // searchBtn.addEventListener("click", () => { // Sidebar open when you click on the search iocn
+        //     sidebar.classList.toggle("open");
+        //     menuBtnChange(); //calling the function(optional)
+        // });
+        // following are the code to change sidebar button(optional)
+        function menuBtnChange() {
+            if (sidebar.classList.contains("open")) {
+                closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
+            } else {
+                closeBtn.classList.replace("bx-menu-alt-right", "bx-menu");//replacing the iocns class
+            }
+        }
+
 
         function toCamelCase(str) {
             return str
@@ -214,10 +699,10 @@
                 .replace(/\s+(.)/g, (_, chr) => chr.toUpperCase())
                 .replace(/\s/g, '');
         }
-
-        $('.add').on('click', function () {
+        $(document).on('click', '[class*=add]', function () {
             $('#notificationModal').modal('show');
             $('#notificationModal').find('#notificationModalLabel').text('Add Schedule');
+            $('#notificationModal').find('#notificationMessage').empty();
             $('#notificationModal').find('#notificationMessage').html(`
                 <form id="addScheduleForm">
                     <div class="mb-3">
@@ -245,7 +730,7 @@
             `);
         });
 
-        $(document).on('click', '[class*=delete-link]', function (){
+        $(document).on('click', '[class*=delete-link]', function () {
             let row = $(this).closest('tr');
             let schedId = row.find('td').eq(0).text().trim();
             $('#notificationModal').modal('show');
@@ -397,7 +882,7 @@
                     .catch(error => {
                         console.error('There was a problem with your fetch operation:', error);
                     });
-                }
+            }
         });
 
         $(document).on('click', '[class*=cancel-link]', function () {
@@ -417,11 +902,11 @@
                             </button>
                             <!-- Delete Button -->
                             <button type="button" class="btn btn-danger btn-sm delete-link" title="Delete">
-                                <i class="fas fa-trash-alt"></i>
+                                <i class="fas fa-trash"></i>
                             </button>
                         </div>
                     `)
-            });
+        });
 
         function arraysAreEqual(arr1, arr2) {
             if (arr1.length !== arr2.length) return false;
